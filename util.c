@@ -73,8 +73,8 @@ struct proc find_proc(const char* name) {
     if(strstr(cmd, name)==NULL && strstr(cmd, "bash -i")==NULL){
       continue;
     }
-
     ret.pid[i] = atoi(entry->d_name);
+    // printf("cmd: %s %d\n", cmd, ret.pid[i]);
     i += 1;
     ret.pid = (int*)realloc(ret.pid, (i+1)*sizeof(int));
   }

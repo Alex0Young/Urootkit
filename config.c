@@ -5,7 +5,7 @@
 #include "log.h"
 #include "config.h"
 
-char* CONFIG_FILE = "/etc/uroot.cfg";
+char* CONFIG_FILE = "/etc/ukk_root.cfg";
 
 int init_cfg(struct Config* cfg){
   cfg->hidden = (const char**)malloc(sizeof(char*)); 

